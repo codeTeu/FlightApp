@@ -65,7 +65,15 @@ namespace FlightApp
         public static List<Flights> GetFList() => fList;
         public static List<Passenger> GetPList() => pList;
 
-
+        /**
+         * open help/about window
+         */
+        public static void OpenWindow(Window newWindow, Window sender)
+        {
+            newWindow.Owner = sender;
+            newWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            newWindow.ShowDialog();
+        }
 
         /**
          * checks for a match in the tList

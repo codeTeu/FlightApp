@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightApp"
         mc:Ignorable="d"
-        Title="Home_Window" Height="450" Width="800" Style="{StaticResource windowSize}" Background="Orange">
+        Title="Home_Window" Height="450" Width="800" Style="{StaticResource windowSize}" Background="Orange" Closing="Window_Closing">
     <StackPanel Style="{StaticResource stackPanelMainStyle}">
         <Menu Style="{StaticResource menubg}">
             <MenuItem Header="File">
                 <MenuItem Header="_New" Name="mnuNew" />
                 <MenuItem Header="_Save" Name="mnuSave" />
-                <MenuItem Header="_AddUser" Name="mnuAddUser" Click="mnuAddUser_Click"/>
+                <MenuItem Header="_AddUser" Name="mnuAddUser" Click="mnuAddUser_Click" Loaded="Window_Loaded"/>
                 <MenuItem Header="_Quit" Name="mnuQuit" Click="mnuQuit_Click"/>
             </MenuItem>
 
