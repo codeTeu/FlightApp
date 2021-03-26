@@ -1,6 +1,7 @@
 ﻿using FlightApp.Classes;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FlightApp
 {
@@ -64,6 +65,47 @@ namespace FlightApp
         public static List<Flights> GetFList() => fList;
         public static List<Passenger> GetPList() => pList;
 
+
+
+        /**
+         * checks for a match in the tList
+         * if match, sets super stat
+         * error if not match
+         */
+        private static bool SuperStat { get; set; } = false;
+        public static bool LoginValid(string username, string password)
+        {
+            foreach (var item in GetTList())
+            {
+                if (item.Username.Equals(username) && item.Password.Equals(password))
+                {
+                    SuperStat = item.SuperUser == 1 ? true : false;
+                    return true;
+                }
+            }
+
+            GetError("loginErr");
+            return false;
+        }
+
+        public static void GetError(string err)
+        {
+
+            string title = "System Message";
+            string message = "";
+
+            if (err.Equals("loginErr"))
+            {
+                message = "Username or Password is wrong.";
+            }
+            else if (err.Equals(""))
+            {
+
+            }
+
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
         /**
          * closes the whole app
          */
@@ -91,6 +133,17 @@ namespace FlightApp
             return result;
         }
 
+
+        /**
+         * hides the add user menu if not a super user
+         */
+        public static void HideMenuNotSuper(MenuItem menu)
+        {
+            if (!SuperStat)
+            {
+                menu.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 
 

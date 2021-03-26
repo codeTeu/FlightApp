@@ -30,7 +30,17 @@ namespace FlightApp
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            
+            string usernameIn = txtUsername.Text;
+            string pwdIn = pwdBox.Password;
+
+
+            if (App.LoginValid(usernameIn, pwdIn))
+            {
+                MainWindow homePage = new MainWindow();
+                homePage.Owner = this;
+                homePage.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                homePage.ShowDialog();
+            }
         }
     }
 }

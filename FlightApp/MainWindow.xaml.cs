@@ -23,6 +23,44 @@ namespace FlightApp
         public MainWindow()
         {
             InitializeComponent();
+            App.HideMenuNotSuper(mnuAddUser);
         }
+
+        private void btnVC_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnVF_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnVA_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnVP_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnuHelp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnuQuit_Click(object sender, RoutedEventArgs e)
+        {
+            App.QuitHandler();
+        }
+
+        private void mnuAddUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }
