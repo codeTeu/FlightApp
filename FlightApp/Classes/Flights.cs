@@ -1,6 +1,6 @@
 ﻿namespace FlightApp.Classes
 {
-    class Flights
+    public class Flights
     {
         private static int count = 1;
         public int Id { get; set; }

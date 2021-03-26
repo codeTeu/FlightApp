@@ -1,6 +1,6 @@
 ﻿namespace FlightApp.Classes
 {
-    class Passenger
+    public class Passenger
     {
         private static int count = 1;
 
