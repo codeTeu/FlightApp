@@ -48,5 +48,20 @@ namespace FlightApp
         {
             App.OpenWindow(new AboutWindow(), this);
         }
+
+        private void chkSuper_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void lstBoxT_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void chkSuper_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
