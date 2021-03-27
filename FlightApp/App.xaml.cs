@@ -1,5 +1,6 @@
 ﻿using FlightApp.Classes;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -156,6 +157,62 @@ namespace FlightApp
                 menu.Visibility = Visibility.Collapsed;
             }
         }
+
+
+
+        public static Airlines SelectedARec(ListBox listBox)
+        {
+            if (!listBox.Items.IsEmpty)
+            {
+                var temp = from rec in GetAList()
+                           where rec.Name.Equals(listBox.SelectedItem)
+                           select rec;
+
+                return temp == null ? null : temp.First();
+            }
+
+            return null;
+        }
+
+
+
+        public static Flights SelectedFRec(ListBox listBox)
+        {
+            if (!listBox.Items.IsEmpty)
+            {
+
+                string selectedItem = listBox.SelectedItem.ToString();
+                int indexOfColon = selectedItem.IndexOf(':');
+
+                int fIndex = int.Parse(selectedItem.Substring(0, indexOfColon));
+
+
+                var temp = from rec in GetFList()
+                           where rec.Id == fIndex
+                           select rec;
+
+                return temp == null ? null : temp.First();
+            }
+
+            return null;
+        }
+
+
+        public static Table SelectedTRec(ListBox listBox)
+        {
+            if (!listBox.Items.IsEmpty)
+            {
+                var temp = from rec in GetTList()
+                           where rec.Username.Equals(listBox.SelectedItem)
+                           select rec;
+
+                return temp == null ? null : temp.First();
+            }
+
+            return null;
+        }
+
+
     }
 
 
