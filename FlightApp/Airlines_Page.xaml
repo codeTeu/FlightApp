@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightApp"
         mc:Ignorable="d"
-        Title="Airlines_Page" Height="450" Width="800" Closing="WindowClose" Background="ForestGreen">
+        Title="Airlines_Page" Style="{StaticResource windowSize}" Closing="WindowClose" Background="ForestGreen">
     <Window.ContextMenu >
         <ContextMenu Name="contextMenu">
             <MenuItem Header="Insert" Name="cmInsert" Click="btnInsert_Click"/>

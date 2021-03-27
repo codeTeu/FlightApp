@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightApp"
         mc:Ignorable="d"
-        Title="Home_Window" Height="450" Width="800" Style="{StaticResource windowSize}" Background="Orange" Closing="Window_Closing">
+        Title="Home_Window" Style="{StaticResource windowSize}" Background="Orange" Closing="Window_Closing" Loaded="Window_Loaded">
     <StackPanel Style="{StaticResource stackPanelMainStyle}">
         <Menu FontSize="18" Background="LightGray">
             <MenuItem Header="File">
