@@ -58,7 +58,7 @@ namespace FlightApp
 
         private void mnuAddUser_Click(object sender, RoutedEventArgs e)
         {
-
+            App.OpenWindow(new AddUser_Page(), this);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

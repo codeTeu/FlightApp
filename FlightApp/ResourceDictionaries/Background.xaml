@@ -19,4 +19,9 @@
         <Setter Property="FontSize" Value="18" />
         <Setter Property="Background" Value="LightGray" />
     </Style>
+
+    <Style TargetType="Grid" x:Key="gridStyle">
+        <Setter  Property="Margin" Value="20" />
+        <Setter  Property="Background" Value="WhiteSmoke" />
+    </Style>
 </ResourceDictionary>

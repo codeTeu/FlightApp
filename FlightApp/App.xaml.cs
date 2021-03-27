@@ -125,6 +125,10 @@ namespace FlightApp
             }
         }
 
+        public static void WindowCloseOpacity(Window wd)
+        {
+            wd.Owner.Opacity = 1;
+        }
         public static MessageBoxResult SelectedButtonAfterMessage(string err)
         {
 

@@ -7,17 +7,16 @@
         mc:Ignorable="d"
         Title="Home_Window" Height="450" Width="800" Style="{StaticResource windowSize}" Background="Orange" Closing="Window_Closing">
     <StackPanel Style="{StaticResource stackPanelMainStyle}">
-        <Menu Style="{StaticResource menubg}">
+        <Menu FontSize="18" Background="LightGray">
             <MenuItem Header="File">
                 <MenuItem Header="_New" Name="mnuNew" />
                 <MenuItem Header="_Save" Name="mnuSave" />
-                <MenuItem Header="_AddUser" Name="mnuAddUser" Click="mnuAddUser_Click" Loaded="Window_Loaded"/>
+                <MenuItem Header="_AddUser" Name="mnuAddUser" Click="mnuAddUser_Click"/>
                 <MenuItem Header="_Quit" Name="mnuQuit" Click="mnuQuit_Click"/>
             </MenuItem>
 
             <MenuItem Header="Help" Name="mnuHelp" Click="mnuHelp_Click"/>
         </Menu>
-
         <StackPanel Margin="20">
             <Button Name="btnVC" Content="View Customers" Style="{StaticResource btnHomeStyle}" Click="btnVC_Click"/>
             <Button Name="btnVF" Content="View Flights" Style="{StaticResource btnHomeStyle}" Click="btnVF_Click"/>

@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightApp"
         mc:Ignorable="d"
-        Title="Passengers_Page" Height="450" Width="800">
-    <Grid>
+        Title="Passengers_Page" Style="{StaticResource windowSize}" Background="Purple" Closing="WindowClose">
+ <Window.ContextMenu>
+        <ContextMenu Name="contextMenu">
+            <MenuItem Header="Insert" Name="cmInsert" Click="btnInsert_Click"/>
+            <MenuItem Header="Update" Name="cmUpdate" Click="btnUpdate_Click"/>
+            <MenuItem Header="Delete" Name="cmDelete" Click="btnDelete_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <StackPanel Style="{StaticResource stackPanelMainStyle}">
+        <Menu FontSize="18" Background="LightGray">
+            <MenuItem Header="File">
+                <MenuItem Header="_New" Name="mnuNew" />
+                <MenuItem Header="_Save" Name="mnuSave" />
+                <MenuItem Header="_AddUser" Name="mnuAddUser" Click="mnuAddUser_Click"/>
+                <MenuItem Header="_Quit" Name="mnuQuit" Click="mnuQuit_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Edit" Name="mnuHeaderEdit" >
+                <MenuItem Header="_Insert" Name="mnuInsert" Click="btnInsert_Click"/>
+                <MenuItem Header="_Update" Name="mnuUpdate" Click="btnUpdate_Click"/>
+                <MenuItem Header="_Delete" Name="mnuDelete" Click="btnDelete_Click"/>
+            </MenuItem>
+
+            <MenuItem Header="Help" Name="mnuHelp" Click="mnuHelp_Click"/>
+
+        </Menu>
+       
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 50">
+
+            <StackPanel Margin="10">
+                <Label Content="Flight List: " Style="{StaticResource lblStyle}" />
+                <ListBox x:Name="lstBoxF" Width="300" Height="200" Margin="5" ItemsSource="{Binding}" SelectionChanged="lstBoxF_SelectionChanged"/>
+            </StackPanel>
+            
+            <StackPanel Margin="10">
+                <Label Content="Passenger List: " Style="{StaticResource lblStyle}" />
+                <ListBox x:Name="lstBoxP" Width="120" Height="200" Margin="5" ItemsSource="{Binding}" />
+            </StackPanel>
+            
+            <StackPanel Margin="10">
+                <Label Content="Customer List: " Style="{StaticResource lblStyle}" />
+                <ListBox x:Name="lstBoxC" Width="120" Height="200" Margin="5" ItemsSource="{Binding}" />
+            </StackPanel>
+
+            <UniformGrid Rows="3" Width="90" Margin="10 40">
+                <Button x:Name="btnInsert" Content="Insert" Margin="0 5" Click="btnInsert_Click"/>
+                <Button x:Name="btnUpdate" Content="Update" Margin="0 5" Click="btnUpdate_Click"/>
+                <Button x:Name="btnDelete" Content="Delete" Margin="0 5" Click="btnDelete_Click"/>
+            </UniformGrid>
+
+        </StackPanel>
         
-    </Grid>
+
+    </StackPanel>
 </Window>
