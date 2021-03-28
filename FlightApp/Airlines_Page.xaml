@@ -45,11 +45,11 @@
 
             <StackPanel Width="100">
                 <Label Content="Airplane:&#xD;&#xA;Name " Style="{StaticResource lblStyle}" />
-                <RadioButton x:Name="rbBoe7" Content="Boeing 700" GroupName="plane" Margin="5" Checked="rbBoe7_Checked"/>
-                <RadioButton x:Name="rbBoe6" Content="Boeing 600" GroupName="plane" Margin="5" Checked="rbBoe6_Checked"/>
-                <RadioButton x:Name="rbBoe5" Content="Boeing 500" GroupName="plane" Margin="5" Checked="rbBoe5_Checked"/>
-                <RadioButton x:Name="rbBoe4" Content="Boeing 400" GroupName="plane" Margin="5" Checked="rbBoe4_Checked"/>
-                <RadioButton x:Name="rbBoe3" Content="Boeing 300" GroupName="plane" Margin="5" Checked="rbBoe3_Checked"/>
+                <RadioButton x:Name="rbBoe7" Content="Boeing 700" GroupName="plane" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbBoe6" Content="Boeing 600" GroupName="plane" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbBoe5" Content="Boeing 500" GroupName="plane" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbBoe4" Content="Boeing 400" GroupName="plane" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbBoe3" Content="Boeing 300" GroupName="plane" Margin="5" Checked="radioBtn_Checked"/>
             </StackPanel>
 
             <StackPanel Width="100">
@@ -60,11 +60,11 @@
 
             <StackPanel Width="100">
                 <Label Content="Plane&#xD;&#xA;Meal: " Style="{StaticResource lblStyle}" />
-                <RadioButton x:Name="rbMealChic" Content="Chicken" GroupName="meal" Margin="5" Checked="rbMealChic_Checked"/>
-                <RadioButton x:Name="rbMealVege" Content="Vegetable" GroupName="meal" Margin="5" Checked="rbMealVege_Checked"/>
-                <RadioButton x:Name="rbMealBeef" Content="Beef" GroupName="meal" Margin="5" Checked="rbMealBeef_Checked"/>
-                <RadioButton x:Name="rbMealBurg" Content="Burger" GroupName="meal" Margin="5" Checked="rbMealBurg_Checked"/>
-                <RadioButton x:Name="rbMealNdle" Content="Noodle" GroupName="meal" Margin="5" Checked="rbMealNdle_Checked"/>
+                <RadioButton x:Name="rbMealChic" Content="Chicken" GroupName="meal" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbMealVege" Content="Vegetable" GroupName="meal" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbMealBeef" Content="Beef" GroupName="meal" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbMealBurg" Content="Burger" GroupName="meal" Margin="5" Checked="radioBtn_Checked"/>
+                <RadioButton x:Name="rbMealNdle" Content="Noodle" GroupName="meal" Margin="5" Checked="radioBtn_Checked"/>
             </StackPanel>
 
             <UniformGrid Rows="3" Width="90" Margin="0 20" >

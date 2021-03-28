@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FlightApp
 {
@@ -77,60 +78,23 @@ namespace FlightApp
                 rbMealNdle.IsChecked = aInfo.MealAvailable == rbMealNdle.Content.ToString() ? true : false;
             }
         }
-        //AIRPLANE
-        private void rbBoe7_Checked(object sender, RoutedEventArgs e)
-        {
-            airplane = rbBoe7.Content.ToString();
-        }
 
-        private void rbBoe6_Checked(object sender, RoutedEventArgs e)
+        private void radioBtn_Checked(object sender, RoutedEventArgs e)
         {
-            airplane = rbBoe6.Content.ToString();
-        }
-        private void rbBoe5_Checked(object sender, RoutedEventArgs e)
-        {
-            airplane = rbBoe5.Content.ToString();
-        }
+            RadioButton button = ((RadioButton)sender);
 
-        private void rbBoe4_Checked(object sender, RoutedEventArgs e)
-        {
-            airplane = rbBoe4.Content.ToString();
-        }
-        private void rbBoe3_Checked(object sender, RoutedEventArgs e)
-        {
-            airplane = rbBoe3.Content.ToString();
-        }
-
-        //MEAL
-        private void rbMealChic_Checked(object sender, RoutedEventArgs e)
-        {
-            meal = rbMealChic.Content.ToString();
-        }
-
-        private void rbMealVege_Checked(object sender, RoutedEventArgs e)
-        {
-            meal = rbMealVege.Content.ToString();
-        }
-
-        private void rbMealBeef_Checked(object sender, RoutedEventArgs e)
-        {
-            meal = rbMealBeef.Content.ToString();
-        }
-
-        private void rbMealBurg_Checked(object sender, RoutedEventArgs e)
-        {
-            meal = rbMealBurg.Content.ToString();
-        }
-
-        private void rbMealNdle_Checked(object sender, RoutedEventArgs e)
-        {
-            meal = rbMealNdle.Content.ToString();
+            if (button.GroupName.Equals("meal"))
+            {
+                meal = ((RadioButton)sender).Content.ToString();
+            }
+            else if (button.GroupName.Equals("plane"))
+            {
+                airplane = ((RadioButton)sender).Content.ToString();
+            }
         }
 
 
-
-
-        private void btnInsert_Click(object sender, RoutedEventArgs e)
+            private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
 
         }
