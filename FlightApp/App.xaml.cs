@@ -132,6 +132,10 @@ namespace FlightApp
             {
                 message = "Nothing to delete.";
             }
+            else if (err.Equals("flightNotNum"))
+            {
+                message = "Flight must be a whole number or decimal.";
+            }
             else if (err.Equals(""))
             {
 
@@ -297,6 +301,7 @@ namespace FlightApp
             }
             return true;
         }
+
         /**
          * shows error message if not super user
          * doesnt show error when in the main window
@@ -401,10 +406,24 @@ namespace FlightApp
         }
 
 
-        /**
-         * check if any input has empty values
-         */
-        public static bool HasCompleteInput(int numToCheck, string val1 = "", string val2 = "", string val3 = "", string val4 = "")
+        public static bool IsDouble(string value)
+        {
+            try
+            {
+                double.Parse(value);
+                return true;
+            }
+            catch
+            {
+                GetError("flightNotNum");
+                return false;
+            }
+        }
+
+            /**
+             * check if any input has empty values
+             */
+            public static bool HasCompleteInput(int numToCheck, string val1 = "", string val2 = "", string val3 = "", string val4 = "")
         {
             switch (numToCheck)
             {

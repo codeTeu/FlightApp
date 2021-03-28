@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using FlightApp.Classes;
+using System.Linq;
 using System.Windows;
 
 namespace FlightApp
@@ -106,12 +107,36 @@ namespace FlightApp
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.HasCompleteInput(4, txtDepCity.Text, txtDestCity.Text, txtDepDate.Text, txtFlightTime.Text) &&
+                    App.IsDouble(txtFlightTime.Text);
 
+            if (valid)
+            {
+                App.GetFList().Add(new Flights(airlineID, txtDepCity.Text, txtDestCity.Text, txtDepDate.Text, double.Parse(txtFlightTime.Text)));
+                RefreshListBox(lstBoxF.Items.Count);
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxF, 'u') &&
+                    App.HasCompleteInput(4, txtDepCity.Text, txtDestCity.Text, txtDepDate.Text, txtFlightTime.Text) &&
+                    App.IsDouble(txtFlightTime.Text) &&
+                    App.SureAction('u');
 
+            if (valid)
+            {
+                Flights fRec = App.SelectedFRec(lstBoxF);
+                fRec.AirlineId = airlineID;
+                fRec.DepartureCity = txtDepCity.Text;
+                fRec.DestinationCity = txtDestCity.Text;
+                fRec.DepartureDate = txtDepDate.Text;
+                fRec.FlightTime = double.Parse(txtFlightTime.Text);
+
+                RefreshListBox(lstBoxF.SelectedIndex);
+            }
         }
         /**
          * deletes a record

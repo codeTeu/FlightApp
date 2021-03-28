@@ -79,7 +79,9 @@ namespace FlightApp
                 }
             }
         }
-
+        /**
+         * assign meal and plane variables withh the radio button that was selected
+         */
         private void radioBtn_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton button = ((RadioButton)sender);
