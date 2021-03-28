@@ -324,6 +324,18 @@ namespace FlightApp
             return false;
 
         }
+        public static bool NameInTList(string username)
+        {
+
+            foreach (var rec in GetTList())
+            {
+                if (rec.Username.Equals(username))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public static bool IsInt(string value)
         {

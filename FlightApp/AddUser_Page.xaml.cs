@@ -53,17 +53,58 @@ namespace FlightApp
 
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
-
+            if (App.HasCompleteInput(2, txtUser.Text, pwdBox.Password))
+            {
+                if (!App.NameInTList(txtUser.Text))
+                {
+                    App.GetTList().Add(new Table(txtUser.Text, pwdBox.Password, superInt));
+                    RefreshListBox(lstBoxT.Items.Count);
+                }
+                else
+                {
+                    App.GetError("nameInList");
+                }
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            bool valid = App.ListBoxHasItem(lstBoxT, 'u') &&
+                           App.HasCompleteInput(2, txtUser.Text, pwdBox.Password) &&
+                           App.SureAction('u');
 
+            if (valid)
+            {
+                bool inList = App.NameInTList(txtUser.Text);
+                Table tRec = App.SelectedTRec(lstBoxT);
+
+                if (tRec.Username.Equals(txtUser.Text) ||
+                    !tRec.Username.Equals(txtUser.Text) && !inList)
+                {
+                    tRec.Username = txtUser.Text;
+                    tRec.Password = pwdBox.Password;
+                    tRec.SuperUser = superInt;
+
+                    RefreshListBox(lstBoxT.SelectedIndex);
+                }
+                else if (inList)
+                {
+                    App.GetError("nameInList");
+                }
+            }
         }
-
+        /**
+         * deletes a record
+         * check if super, list has item, ask if sure- shows error
+         * also deletes all flight records that has a matching id
+         */
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (App.ListBoxHasItem(lstBoxT, 'd') && App.SureAction('d'))
+            {
+                App.GetTList().Remove(App.SelectedTRec(lstBoxT));
+                RefreshListBox();
+            }
         }
 
 
