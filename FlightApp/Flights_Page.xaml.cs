@@ -9,6 +9,7 @@ namespace FlightApp
     public partial class Flights_Page : Window
     {
         private int airlineID = 0;
+        private bool valid = false;
 
         public Flights_Page()
         {
@@ -112,10 +113,32 @@ namespace FlightApp
         {
 
         }
-
+        /**
+         * deletes a record
+         * check if super, list has item, ask if sure- shows error
+         * also deletes passenger record if there is a matching flight id
+         */
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxF, 'd') &&
+                    App.SureAction('d');
 
+            if (valid)
+            {
+
+                var pRecList = from rec in App.GetPList()
+                               where rec.FlightId == App.SelectedFRec(lstBoxF).Id
+                               select rec;
+
+                foreach (var rec in pRecList.ToList())
+                {
+                    App.GetPList().Remove(rec);
+                }
+
+                App.GetFList().Remove(App.SelectedFRec(lstBoxF));
+                RefreshListBox();
+            }
         }
 
         private void mnuQuit_Click(object sender, RoutedEventArgs e)

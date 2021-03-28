@@ -260,7 +260,43 @@ namespace FlightApp
         }
 
 
+        public static Passenger SelectedPRec(ListBox listBox)
+        {
+            if (!listBox.Items.IsEmpty)
+            {
+                var temp = from pRec in App.GetPList()
+                           join cRec in App.GetCList() on pRec.CustomerId
+                           equals cRec.Id
+                           where cRec.Name.Equals(listBox.SelectedItem)
+                           select pRec;
 
+                return temp == null ? null : temp.First();
+            }
+
+            return null;
+        }
+
+        public static bool HasSelected(ListBox listBoxF = null, ListBox listBoxCorA = null, char action = 'u')
+        {
+
+            if (action == 'd' && listBoxF.SelectedItem == null)
+            {
+                GetError("noSelectP");
+                return false;
+            }
+            else if (action == 'u' && listBoxF.SelectedItem == null ||
+                    action == 'u' && listBoxCorA.SelectedItem == null)
+            {
+                GetError("noSelectPC");
+                return false;
+            }
+            else if (action == 'i' && listBoxCorA.SelectedItem == null)
+            {
+                GetError("noSelectC");
+                return false;
+            }
+            return true;
+        }
         /**
          * shows error message if not super user
          * doesnt show error when in the main window

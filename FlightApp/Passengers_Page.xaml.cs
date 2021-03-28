@@ -8,6 +8,9 @@ namespace FlightApp
     /// </summary>
     public partial class Passengers_Page : Window
     {
+
+        private bool valid;
+
         public Passengers_Page()
         {
             InitializeComponent();
@@ -90,7 +93,16 @@ namespace FlightApp
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxP, 'd') &&
+                    App.HasSelected(lstBoxP, lstBoxC, 'd') &&
+                    App.SureAction('d');
 
+            if (valid)
+            {
+                App.GetPList().Remove(App.SelectedPRec(lstBoxP));
+                AssignListBoxP_ItemSource();
+            }
         }
 
 

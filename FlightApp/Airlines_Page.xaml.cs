@@ -10,6 +10,7 @@ namespace FlightApp
     {
         private string airplane = "";
         private string meal = "";
+        private bool valid;
 
         public Airlines_Page()
         {
@@ -139,9 +140,21 @@ namespace FlightApp
 
         }
 
+        /**
+         * deletes a record
+         * check if super, list has item, ask if sure- shows error
+         */
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxA, 'd') &&
+                    App.SureAction('d');
 
+            if (valid)
+            {
+                App.GetAList().Remove(App.SelectedARec(lstBoxA));
+                RefreshListBox();
+            }
         }
 
         private void mnuAddUser_Click(object sender, RoutedEventArgs e)
