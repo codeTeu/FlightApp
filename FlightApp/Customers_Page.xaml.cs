@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using FlightApp.Classes;
+using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace FlightApp
 {
@@ -9,6 +9,9 @@ namespace FlightApp
     /// </summary>
     public partial class Customers_Page : Window
     {
+
+        private bool valid;
+
         public Customers_Page()
         {
             InitializeComponent();
@@ -69,19 +72,93 @@ namespace FlightApp
             App.WindowCloseOpacity(this);
         }
 
+        /**
+         * inserts new record
+         * check if super, no empty input, phone iss int, no duplicate name - shows error
+         */
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.HasCompleteInput(4, txtName.Text, txtAddress.Text, txtEmail.Text, txtPhone.Text) &&
+                    App.IsInt(txtPhone.Text);
+
+            bool inList = App.NameInCList(txtName.Text);
+
+            if (valid && !inList)
+            {
+                App.GetCList().Add(new Customer(txtName.Text, txtAddress.Text, txtEmail.Text, txtPhone.Text));
+                RefreshListBox(lstBoxC.Items.Count);
+            }
+            else if (valid && inList)
+            {
+                App.GetError("nameInList");
+            }
 
         }
 
+        /**
+         * updates a record
+         * check if super, list is not empty, no empy input, 
+         * no duplicate name, phone is int, ask if sure - show error
+         */
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxC, 'u') &&
+                    App.HasCompleteInput(4, txtName.Text, txtAddress.Text, txtEmail.Text, txtPhone.Text) &&
+                    App.IsInt(txtPhone.Text) &&
+                    App.SureAction('u');
+
+            bool inList = App.NameInCList(txtName.Text);
+            Customer cRec = App.SelectedCRec(lstBoxC);
+
+            if (valid)
+            {
+                if (cRec.Name.Equals(txtName.Text) ||
+                    !cRec.Name.Equals(txtName.Text) && !inList)
+                {
+                    cRec.Name = txtName.Text;
+                    cRec.Address = txtAddress.Text;
+                    cRec.Email = txtEmail.Text;
+                    cRec.Phone = txtPhone.Text;
+
+                    RefreshListBox(lstBoxC.SelectedIndex);
+                }
+                else if (inList)
+                {
+                    App.GetError("nameInList");
+                }
+            }
+
 
         }
 
+        /**
+         * deletes a record
+         * check if super, list has item, ask if sure - shows error
+         * also deletes passenger record in they are in the passenger list
+         */
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxC, 'd') &&
+                    App.SureAction('d');
 
+            if (valid)
+            {
+
+                var pRec = from rec in App.GetPList()
+                           where rec.CustomerId == App.SelectedCRec(lstBoxC).Id
+                           select rec;
+
+                foreach (var item in pRec.ToList())
+                {
+                    App.GetPList().Remove(item);
+                }
+
+                App.GetCList().Remove(App.SelectedCRec(lstBoxC));
+                RefreshListBox();
+            }
         }
 
         private void mnuAddUser_Click(object sender, RoutedEventArgs e)

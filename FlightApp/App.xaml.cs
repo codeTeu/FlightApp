@@ -107,6 +107,31 @@ namespace FlightApp
             {
                 message = "Username or Password is wrong.";
             }
+            else if (err.Equals("noEmpty"))
+            {
+                message = "Input can't be empty";
+            }
+            else if (err.Equals("notSuper"))
+            {
+                message = "You are not a super user";
+            }
+            else if (err.Equals("phoneNotNum"))
+            {
+                message = "Phone must be a number.";
+            }
+            else if (err.Equals("nameInList"))
+            {
+                message = "Name already in the list.";
+            }
+            else if (err.Equals("noUpdate"))
+            {
+                message = "Nothing to update.";
+
+            }
+            else if (err.Equals("noDelete"))
+            {
+                message = "Nothing to delete.";
+            }
             else if (err.Equals(""))
             {
 
@@ -141,6 +166,15 @@ namespace FlightApp
                 message = "You wish to close the whole application?";
 
             }
+            else if (err.Equals("askUpdate"))
+            {
+                message = "Update this record?";
+            }
+            else if (err.Equals("askDelete"))
+            {
+                message = "Delete this record?";
+            }
+
 
             MessageBoxResult result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Question);
             return result;
@@ -174,6 +208,19 @@ namespace FlightApp
             return null;
         }
 
+        public static Customer SelectedCRec(ListBox listBox)
+        {
+            if (!listBox.Items.IsEmpty)
+            {
+                var temp = from rec in GetCList()
+                           where rec.Name.Equals(listBox.SelectedItem)
+                           select rec;
+
+                return temp == null ? null : temp.First();
+            }
+
+            return null;
+        }
 
 
         public static Flights SelectedFRec(ListBox listBox)
@@ -212,6 +259,112 @@ namespace FlightApp
             return null;
         }
 
+
+
+        /**
+         * shows error message if not super user
+         * doesnt show error when in the main window
+         */
+        public static bool IsSuperUser()
+        {
+            if (Current.MainWindow.IsFocused)
+            {
+
+            }
+
+            else if (SuperStat)
+            {
+
+                return true;
+            }
+            else
+            {
+                GetError("notSuper");
+            }
+
+            return false;
+
+        }
+
+
+
+        public static bool ListBoxHasItem(ListBox listBox, char updateOrDelete)
+        {
+            if (listBox.Items.IsEmpty)
+            {
+                GetError(updateOrDelete == 'u' ? "noUpdate" : "noDelete");
+                return false;
+            }
+            return true;
+        }
+
+
+
+        /**
+         * aks user if they are sure of their action  
+         */
+        public static bool SureAction(char btnAction)
+        {
+            string errAction = btnAction == 'd' ? "askDelete" : "askUpdate";
+
+            return SelectedButtonAfterMessage(errAction) == MessageBoxResult.Yes ? true : false;
+        }
+
+
+        public static bool NameInCList(object nameIn)
+        {
+
+            foreach (var rec in GetCList())
+            {
+                if (rec.Name.Equals(nameIn.ToString()))
+                {
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
+        public static bool IsInt(string value)
+        {
+            try
+            {
+                int.Parse(value);
+                return true;
+            }
+            catch
+            {
+                GetError("phoneNotNum");
+                return false;
+            }
+        }
+
+
+        /**
+         * check if any input has empty values
+         */
+        public static bool HasCompleteInput(int numToCheck, string val1 = "", string val2 = "", string val3 = "", string val4 = "")
+        {
+            switch (numToCheck)
+            {
+                case 2:
+                    if (val1.Equals("") || val2.Equals(""))
+                    {
+                        GetError("noEmpty");
+                        return false;
+                    }
+                    break;
+                case 4:
+                    if (val1.Equals("") || val2.Equals("") || val3.Equals("") || val4.Equals(""))
+                    {
+                        GetError("noEmpty");
+                        return false;
+                    }
+                    break;
+            }
+
+            return true;
+        }
 
     }
 
