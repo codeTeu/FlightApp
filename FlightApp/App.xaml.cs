@@ -360,6 +360,19 @@ namespace FlightApp
             return false;
 
         }
+        public static bool NameInAList(string name)
+        {
+
+            foreach (var rec in GetAList())
+            {
+                if (rec.Name.Equals(name))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static bool NameInTList(string username)
         {
 

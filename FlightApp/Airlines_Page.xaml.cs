@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using FlightApp.Classes;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -65,17 +66,17 @@ namespace FlightApp
                 txtName.Text = aInfo.Name;
                 txtSeats.Text = aInfo.SeatsAvailable.ToString();
 
-                rbBoe7.IsChecked = aInfo.Airplane == rbBoe7.Content.ToString() ? true : false;
-                rbBoe6.IsChecked = aInfo.Airplane == rbBoe6.Content.ToString() ? true : false;
-                rbBoe5.IsChecked = aInfo.Airplane == rbBoe5.Content.ToString() ? true : false;
-                rbBoe4.IsChecked = aInfo.Airplane == rbBoe4.Content.ToString() ? true : false;
-                rbBoe3.IsChecked = aInfo.Airplane == rbBoe3.Content.ToString() ? true : false;
+                RadioButton[] rbPlanelArr = { rbBoe7, rbBoe6, rbBoe5, rbBoe4, rbBoe3 };
+                foreach (var plane in rbPlanelArr)
+                {
+                    plane.IsChecked = aInfo.Airplane == plane.Content.ToString() ? true : false;
+                }
 
-                rbMealChic.IsChecked = aInfo.MealAvailable == rbMealChic.Content.ToString() ? true : false;
-                rbMealVege.IsChecked = aInfo.MealAvailable == rbMealVege.Content.ToString() ? true : false;
-                rbMealBeef.IsChecked = aInfo.MealAvailable == rbMealBeef.Content.ToString() ? true : false;
-                rbMealBurg.IsChecked = aInfo.MealAvailable == rbMealBurg.Content.ToString() ? true : false;
-                rbMealNdle.IsChecked = aInfo.MealAvailable == rbMealNdle.Content.ToString() ? true : false;
+                RadioButton[] rbMealArr = { rbMealChic, rbMealVege, rbMealBeef, rbMealBurg, rbMealNdle };
+                foreach (var meal in rbMealArr)
+                {
+                    meal.IsChecked = aInfo.MealAvailable == meal.Content.ToString() ? true : false;
+                }
             }
         }
 
@@ -93,15 +94,58 @@ namespace FlightApp
             }
         }
 
-
-            private void btnInsert_Click(object sender, RoutedEventArgs e)
+        /**
+         * inserts new record
+         * check if super, no empty input, phone is int, no duplicate name - shows error
+         */
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.HasCompleteInput(2, txtName.Text, txtSeats.Text) &&
+                    App.IsInt(txtSeats.Text);
 
+
+            bool inList = App.NameInAList(txtName.Text);
+
+            if (valid && !inList)
+            {
+                App.GetAList().Add(new Airlines(txtName.Text, airplane, int.Parse(txtSeats.Text), meal));
+                RefreshListBox(lstBoxA.Items.Count);
+            }
+            else if (valid && inList)
+            {
+                App.GetError("nameInList");
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxA, 'u') &&
+                    App.HasCompleteInput(2, txtName.Text, txtSeats.Text) &&
+                    App.IsInt(txtSeats.Text) &&
+                    App.SureAction('u');
 
+            if (valid)
+            {
+                bool inList = App.NameInAList(txtName.Text);
+                Airlines aRec = App.SelectedARec(lstBoxA);
+
+                if (aRec.Name.Equals(txtName.Text) ||
+                    !aRec.Name.Equals(txtName.Text) && !inList)
+                {
+                    aRec.Name = txtName.Text;
+                    aRec.SeatsAvailable = int.Parse(txtSeats.Text);
+                    aRec.Airplane = airplane;
+                    aRec.MealAvailable = meal;
+
+                    RefreshListBox(lstBoxA.SelectedIndex);
+                }
+                else if (inList)
+                {
+                    App.GetError("nameInList");
+                }
+            }
         }
 
         /**
