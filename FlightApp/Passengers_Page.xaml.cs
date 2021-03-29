@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using FlightApp.Classes;
+using System.Linq;
 using System.Windows;
 
 namespace FlightApp
@@ -81,16 +82,98 @@ namespace FlightApp
             App.WindowCloseOpacity(this);
         }
 
+        /**
+         * inserts new record
+         * check if super, no empty input, flight is double - shows error
+         * 
+         * duplicate flight is fine
+         */
         private void btnInsert_Click(object sender, RoutedEventArgs e)
         {
+            {
+                valid = App.IsSuperUser() && App.HasSelected(lstBoxF, lstBoxC, 'i') && PlaneHasSeat();
 
+                if (valid)
+                {
+                    if (!IsAPassenger())
+                    {
+                        int custId = App.SelectedCRec(lstBoxC).Id;
+                        int flightId = App.SelectedFRec(lstBoxF).Id;
+                        App.GetPList().Add(new Passenger(custId, flightId));
+                        AssignListBoxP_ItemSource();
+                    }
+                }
+            }
         }
 
+        /**
+         * checks whether the selected plane still has seats
+         * shows error if full
+         */
+        public bool PlaneHasSeat()
+        {
+            int fRecAid = App.SelectedFRec(lstBoxF).AirlineId;
+
+            var maxSeats = from aRec in App.GetAList()
+                           where aRec.Id == fRecAid
+                           select aRec.SeatsAvailable;
+
+            int numPass = lstBoxP.Items.Count;
+
+            if (numPass< maxSeats.First())
+            {
+                return true;
+            }
+
+            App.GetError("planeFull");
+            return false;
+   
+        }
+
+        /**
+         * replace the selected passenger with the new customer id
+         */
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            valid = App.IsSuperUser() &&
+                    App.ListBoxHasItem(lstBoxP, 'u') &&
+                    App.ListBoxHasItem(lstBoxC, 'u') &&
+                    App.HasSelected(lstBoxP, lstBoxC, 'u') && 
+                    !IsAPassenger() &&
+                    App.SureAction('u');
 
+            if (valid)
+            {
+                Customer cRec = App.SelectedCRec(lstBoxC);
+                Passenger pRec = App.SelectedPRec(lstBoxP);
+                pRec.CustomerId = cRec.Id;
+                AssignListBoxP_ItemSource();
+            }
         }
 
+        /**
+         * checks whether the selected customer already 
+         * have a record in the passenger list for the specified plane
+         * (passenger can't be on the same plane twice)
+         */
+        public bool IsAPassenger()
+        {
+            Customer cRec = App.SelectedCRec(lstBoxC);
+            bool isPassenger = lstBoxP.Items.Contains(cRec.Name) ? true : false;
+
+            if (isPassenger)
+            {
+                App.GetError("isPassenger");
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
+         * deletes a record
+         * check if super, list has item, if selected, ask if sure- shows error
+         */
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             valid = App.IsSuperUser() &&

@@ -126,7 +126,6 @@ namespace FlightApp
             else if (err.Equals("noUpdate"))
             {
                 message = "Nothing to update.";
-
             }
             else if (err.Equals("noDelete"))
             {
@@ -135,6 +134,26 @@ namespace FlightApp
             else if (err.Equals("flightNotNum"))
             {
                 message = "Flight must be a whole number or decimal.";
+            }
+            else if (err.Equals("isPassenger"))
+            {
+                message = "That customer is already a passenger.";
+            }
+            else if (err.Equals("noSelectP"))
+            {
+                message = "No passengers were selected";
+            }
+            else if (err.Equals("noSelectC"))
+            {
+                message = "No customer were selected";
+            }
+            else if (err.Equals("noSelectPC"))
+            {
+                message = "A passenger and a customer must be selected";
+            }
+            else if (err.Equals("planeFull"))
+            {
+                message = "The plane is full ";
             }
             else if (err.Equals(""))
             {
@@ -420,10 +439,10 @@ namespace FlightApp
             }
         }
 
-            /**
-             * check if any input has empty values
-             */
-            public static bool HasCompleteInput(int numToCheck, string val1 = "", string val2 = "", string val3 = "", string val4 = "")
+        /**
+         * check if any input has empty values
+         */
+        public static bool HasCompleteInput(int numToCheck, string val1 = "", string val2 = "", string val3 = "", string val4 = "")
         {
             switch (numToCheck)
             {
